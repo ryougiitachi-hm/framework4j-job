@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+elasticjob:
+  regCenter:
+    serverLists: 127.0.0.1:2181
+    namespace: job-elasticjob
+    baseSleepTimeMilliseconds: 2000
+    maxSleepTimeMilliseconds: 4000
+    maxRetries: 3
+  jobs:
+    OrderJob:
+      elasticJobClass: per.itachi.framework4j.job.elasticjob.joint.job.OrderJob
+      cron: 0/6 * * * * ?
+      shardingTotalCount: 8
+      jobErrorHandlerType: DINGTALK
+      props:
+        dingtalk:
+          webhook: https://oapi.dingtalk.com/robot/send?access_token=xxx
+          secret: ASDF
+          connectTimeout: 3000
+          readTimeout: 5000
